@@ -1,0 +1,23 @@
+---
+galaxy_info:
+  role_name: vagrant
+  author: Garrett Hyde
+  description: Install Vagrant on Fedora
+  issue_tracker_url: https://github.com/ghyde/ansible-role-vagrant/issues
+  license: MIT
+  min_ansible_version: 2.5
+  platforms:
+  - name: Fedora
+    versions:
+    - 30
+  galaxy_tags:
+  - development
+  - fedora
+  - libvirt
+  - vagrant
+  - virtualbox
+  - virtualization
+dependencies:
+  - ghyde.libvirt
+  - ghyde.virtualbox
+...

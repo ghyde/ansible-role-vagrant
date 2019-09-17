@@ -1,0 +1,6 @@
+# Include all files in /etc/dnsmasq.d except RPM backup files
+conf-dir=/etc/dnsmasq.d,.rpmnew,.rpmsave,.rpmorig
+
+listen-address={{ dnsmasq_listen_address }}
+interface={{ dnsmasq_listen_interface }}
+bind-interfaces

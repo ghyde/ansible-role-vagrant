@@ -1,0 +1,24 @@
+---
+- name: install Vagrant
+  dnf:
+    name: vagrant
+    state: present
+    install_weak_deps: False
+  become: Yes
+  become_user: root
+- name: gather installed Vagrant plugins
+  command: vagrant plugin list
+  register: installed_vagrant_plugins
+  changed_when: false
+- name: install Vagrant plugin dependencies
+  dnf:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ vagrant_plugin_dependencies }}"
+  become: Yes
+  become_user: root
+- name: install Vagrant plugins
+  shell: vagrant plugin install {{ item }}
+  loop: "{{ vagrant_plugins }}"
+  when: item not in installed_vagrant_plugins.stdout
+...

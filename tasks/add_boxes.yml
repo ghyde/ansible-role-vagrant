@@ -1,0 +1,5 @@
+---
+- name: add Vagrant boxes
+  command: vagrant box --name "{{ item.name }}" --provider "{{ item.provider | default('libvirt') }}"
+  loop: "{{ vagrant_boxes }}"
+...
