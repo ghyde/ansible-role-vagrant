@@ -1,0 +1,23 @@
+---
+# These tasks fix a bug where the landrush DNS server will not start
+# because eventmachine cannot import a module.
+- name: get installed version of ruby
+  dnf:
+    list: ruby
+  register: output
+- set_fact:
+    ruby_version: "{{ output | json_query('results[?yumstate==`installed`].version') | first }}"
+- name: get path to eventmachine gem
+  find:
+    paths: "{{ ansible_user_dir }}/.vagrant.d/gems/{{ ruby_version }}/gems"
+    file_type: directory
+    patterns: "eventmachine-*"
+  register: output
+- set_fact:
+    eventmachine_path: "{{ output.files[0].path }}"
+- name: fix eventmachine gem
+  copy:
+    src: "{{ eventmachine_path }}/ext/rubyeventmachine.so"
+    dest: "{{ eventmachine_path }}/lib/"
+    remote_src: True
+...

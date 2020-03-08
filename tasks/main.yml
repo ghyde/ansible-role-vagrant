@@ -1,6 +1,8 @@
 ---
 - block:
   - import_tasks: install.yml
+  - import_tasks: fix_landrush.yml
+    when: '"landrush" in vagrant_plugins'
   - import_tasks: dnsmasq.yml
     when: '"landrush" in vagrant_plugins'
   - import_tasks: add_boxes.yml
