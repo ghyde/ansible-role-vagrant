@@ -1,22 +1,11 @@
 ---
-# Configure dnsmasq to work with landrush
 - block:
-  - name: install dnsmasq
-    dnf:
-      name: dnsmasq
-      state: present
-  - name: configure dnsmasq
-    template:
-      src: dnsmasq.conf.j2
-      dest: /etc/dnsmasq.conf
-      backup: Yes
-    notify: restart dnsmasq
-  - name: start dnsmasq
-    service:
-      name: dnsmasq
-      state: started
-      enabled: Yes
-  become: Yes
+  - name: enable dnsmasq plugin in NetworkManager
+    copy:
+      src: nm-dnsmasq.conf
+      dest: /etc/NetworkManager/conf.d/00-use-dnsmasq.conf
+    notify: restart NetworkManager
+  become: True
   become_user: root
   tags:
   - dnsmasq

@@ -12,13 +12,6 @@ Install [Vagrant][vagrant] on Fedora.
 | vagrant_plugins             | List of Vagrant plugins to install               | List | []      |
 | vagrant_plugin_dependencies | List of RPM packages required by Vagrant plugins | List | []      |
 
-### vars/main.yml
-
-| name                     | description                   | type       | default   |
-| ------------------------ | ----------------------------- | ---------- | --------- |
-| dnsmasq_listen_address   | Dnsmasq's listening address   | IP Address | 127.0.0.1 |
-| dnsmasq_listen_interface | Dnsmasq's listening interface | Interface  | lo        |
-
 ## Dependencies
 
 - [ghyde.libvirt][libvirt_role]
@@ -36,9 +29,13 @@ Install [Vagrant][vagrant] on Fedora.
         - name: centos/7
           provider: libvirt
       vagrant_plugins:
-        - landrush
+        - vagrant-libvirt
       vagrant_plugin_dependencies:
-        - dnsmasq
+        - gcc
+        - libvirt
+        - libvirt-devel
+        - qemu
+        - ruby-devel
 ```
 
 ## License

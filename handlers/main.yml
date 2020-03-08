@@ -1,7 +1,7 @@
 ---
-- name: restart dnsmasq
-  service:
-    name: dnsmasq
+- name: restart NetworkManager
+  systemd:
+    name: NetworkManager
     state: restarted
   become: True
   become_user: root

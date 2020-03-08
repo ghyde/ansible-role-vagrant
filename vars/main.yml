@@ -1,4 +1,0 @@
----
-dnsmasq_listen_address: "127.0.0.1"
-dnsmasq_listen_interface: lo
-...
