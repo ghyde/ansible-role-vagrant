@@ -12,9 +12,8 @@
   changed_when: false
 - name: install Vagrant plugin dependencies
   dnf:
-    name: "{{ item }}"
+    name: "{{ vagrant_plugin_dependencies }}"
     state: present
-  loop: "{{ vagrant_plugin_dependencies }}"
   become: Yes
   become_user: root
 - name: install Vagrant plugins
