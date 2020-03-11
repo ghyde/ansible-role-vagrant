@@ -1,5 +1,10 @@
 ---
+- name: gather installed Vagrant boxes
+  command: vagrant box list
+  register: installed_vagrant_boxes
+  changed_when: False
 - name: add Vagrant boxes
-  command: vagrant box --name "{{ item.name }}" --provider "{{ item.provider | default('libvirt') }}"
+  command: vagrant box add "{{ item.name }}" --provider "{{ item.provider | default('libvirt') }}"
   loop: "{{ vagrant_boxes }}"
+  when: (item.name + " (" + item.provider) not in installed_vagrant_boxes.stdout
 ...
