@@ -1,5 +1,16 @@
 ---
+- name: gather facts about installed packages
+  package_facts:
+    manager: auto
 - block:
+  # Prevent dnsmasq from conflicting with NetworkManager
+  - name: disable dnsmasq service
+    systemd:
+      name: dnsmasq
+      state: stopped
+      enabled: False
+      masked: True
+    when: "'dnsmasq' in ansible_facts.packages"
   - name: enable dnsmasq plugin in NetworkManager
     copy:
       src: nm-dnsmasq.conf
